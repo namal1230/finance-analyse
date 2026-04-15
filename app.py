@@ -54,5 +54,29 @@ if uploaded_file:
         st.metric("📅 Predicted Next Month", f"{predict_next_month(df)}")
 
 
+    st.markdown("---")
+    st.markdown("### 📈 Visual Analysis")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### 🧾 Category Spending")
+        cat_data = category_spending(df)
+        st.pyplot(plot_category_spending(cat_data))
+
+    with col2:
+        st.markdown("#### 📆 Monthly Trend")
+        month_data = monthly_trend(df)
+        st.pyplot(plot_monthly_trend(month_data))
+
+    st.markdown("### 🔥 Spending Heatmap")
+    st.pyplot(plot_heatmap(df))
+
+    st.markdown("---")
+    st.markdown("### 📋 Data Preview")
+
+    st.dataframe(df, use_container_width=True)
+
+
 else:
     st.info("👆 Upload a CSV file to get started")
