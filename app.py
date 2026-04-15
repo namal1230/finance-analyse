@@ -1,6 +1,10 @@
 import pandas as pd
 import streamlit as st
+
+from utils.analysis import category_spending, monthly_trend, total_spending, average_spending, predict_next_month, \
+    generate_insights
 from utils.preprocess import load_daa
+from utils.visualization import plot_category_spending, plot_monthly_trend, plot_heatmap
 
 st.set_page_config(page_title="Finance Dashboard", layout="wide")
 
