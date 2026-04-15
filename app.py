@@ -40,5 +40,19 @@ if uploaded_file:
             (df["date"] <= pd.to_datetime(end_date))
             ]
 
+    st.markdown("### 📊 Key Metrics")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("💸 Total Spending", f"{total_spending(df)}")
+
+    with col2:
+        st.metric("📉 Average Spending", f"{average_spending(df)}")
+
+    with col3:
+        st.metric("📅 Predicted Next Month", f"{predict_next_month(df)}")
+
+
 else:
     st.info("👆 Upload a CSV file to get started")
