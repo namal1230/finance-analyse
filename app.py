@@ -77,6 +77,13 @@ if uploaded_file:
 
     st.dataframe(df, use_container_width=True)
 
+    st.markdown("---")
+    st.markdown("### 🧠 Insights")
+
+    insights = generate_insights(df)
+    for insight in insights:
+        st.info(insight)
+
 
 else:
     st.info("👆 Upload a CSV file to get started")
