@@ -13,5 +13,32 @@ if uploaded_file:
 
     df = load_daa(uploaded_file)
 
+    st.sidebar.header("🔍 Filters")
+
+    categories = df["category"].unique()
+    selected_category = st.sidebar.selectbox(
+        "Select Category",
+        ["All"] + list(categories)
+    )
+
+    if selected_category != "All":
+        df = df[df["category"] == selected_category]
+
+    df["date"] = pd.to_datetime(df["date"])
+    min_date = df["date"].min()
+    max_date = df["date"].max()
+
+    date_range = st.sidebar.date_input(
+        "📅 Date Range",
+        [min_date, max_date]
+    )
+
+    if len(date_range) == 2:
+        start_date, end_date = date_range
+        df = df[
+            (df["date"] >= pd.to_datetime(start_date)) &
+            (df["date"] <= pd.to_datetime(end_date))
+            ]
+
 else:
     st.info("👆 Upload a CSV file to get started")
