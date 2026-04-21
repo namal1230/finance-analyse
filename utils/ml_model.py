@@ -20,11 +20,11 @@ def predict_spending(df):
 
 def detect_anomalies(df):
     model = IsolationForest(contamination=0.1)
-    df['anomaly'] = model.fit_predict(df[['Amount']])
+    df['anomaly'] = model.fit_predict(df[['amount']])
     anomalies = df[df["anomaly"] == -1]
     return anomalies
 
 def cluster_spending(df):
     model = KMeans(n_clusters=3)
-    df['cluster'] = model.fit_predict(df[['Amount']])
+    df['cluster'] = model.fit_predict(df[['amount']])
     return df
