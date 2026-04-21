@@ -6,7 +6,7 @@ from utils.analysis import category_spending, monthly_trend, total_spending, ave
 from utils.preprocess import load_daa
 from utils.visualization import plot_category_spending, plot_monthly_trend, plot_heatmap
 from utils.ml_model import predict_spending, detect_anomalies, cluster_spending
-
+from utils.overspend_model import prepare_dataset, train_model, predict_overspend
 st.set_page_config(page_title="Finance Dashboard", layout="wide")
 
 st.title("💰 Finance Analyzer Dashboard")
@@ -105,5 +105,15 @@ if uploaded_file:
     st.subheader("Spending clusters")
     df_clustered = cluster_spending(df)
     st.write(df_clustered[['amount','cluster']])
+
+    st.subheader("Overspending Prediction")
+    monthly = prepare_dataset(df)
+    model = train_model(monthly)
+    result = predict_overspend(model, monthly)
+
+    if result == 1:
+        st.error("User is likely to overspend next month")
+    else:
+        st.success("User is likely within budget")
 else:
     st.info("👆 Upload a CSV file to get started")
