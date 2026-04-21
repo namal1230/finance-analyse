@@ -18,10 +18,15 @@ def prepare_dataset(df):
     return monthly
 
 def train_model(monthly):
-    x = monthly[["amount", "prev"]]
-    y= monthly["overspend"]
+    if len(monthly) < 3:
+        return None
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    x = monthly[["prev"]]  # better feature
+    y = monthly["overspend"]
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
+    )
 
     model = RandomForestClassifier(n_estimators=100)
     model.fit(x_train, y_train)
@@ -29,9 +34,12 @@ def train_model(monthly):
     return model
 
 def predict_overspend(model, monthly):
+    if model is None or monthly.empty:
+        return None
+
     last = monthly.iloc[-1]
 
-    input_data = np.array([last["amount"], last["prev"]])
+    input_data = np.array([[last["prev"]]])  # FIXED shape
     prediction = model.predict(input_data)[0]
 
     return prediction

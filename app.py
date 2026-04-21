@@ -109,11 +109,10 @@ if uploaded_file:
     st.subheader("Overspending Prediction")
     monthly = prepare_dataset(df)
     model = train_model(monthly)
-    result = predict_overspend(model, monthly)
 
-    if result == 1:
-        st.error("User is likely to overspend next month")
+    if model is None:
+        st.warning("Not enough data to train model")
     else:
-        st.success("User is likely within budget")
+        pred = predict_overspend(model, monthly)
 else:
     st.info("👆 Upload a CSV file to get started")
