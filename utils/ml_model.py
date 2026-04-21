@@ -8,7 +8,7 @@ def predict_spending(df):
     df['MonthIndex'] = range(len(df))
 
     x= np.array(df['MonthIndex']).reshape(-1,1)
-    y=df["Amount"].values
+    y=df["amount"].values
 
     model = LinearRegression()
     model.fit(x,y)
