@@ -5,7 +5,7 @@ from utils.analysis import category_spending, monthly_trend, total_spending, ave
     generate_insights
 from utils.preprocess import load_daa
 from utils.visualization import plot_category_spending, plot_monthly_trend, plot_heatmap
-from utils.ml_model import predict_spending
+from utils.ml_model import predict_spending, detect_anomalies
 
 st.set_page_config(page_title="Finance Dashboard", layout="wide")
 
@@ -93,5 +93,17 @@ if uploaded_file:
 
     prediction = predict_spending(df)
     st.write(f"Next Spending Prediction: {prediction: .2f}")
+
+    st.subheader("Anomaly Detected")
+    anomaly = detect_anomalies(df)
+
+    if not anomaly.empty:
+        st.write(anomaly)
+    else:
+        st.success("No usual spending detected")
+
+    st.subheader("Spending clusters")
+    df_clustered = cluster_spending(df)
+    st.write(df_clustered[['Amount','cluster']])
 else:
     st.info("👆 Upload a CSV file to get started")
