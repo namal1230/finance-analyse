@@ -104,6 +104,6 @@ if uploaded_file:
 
     st.subheader("Spending clusters")
     df_clustered = cluster_spending(df)
-    st.write(df_clustered[['Amount','cluster']])
+    st.write(df_clustered[['amount','cluster']])
 else:
     st.info("👆 Upload a CSV file to get started")
