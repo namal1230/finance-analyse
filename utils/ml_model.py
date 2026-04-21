@@ -3,9 +3,6 @@ import numpy as np
 from sklearn.ensemble import IsolationForest
 from sklearn.cluster import KMeans
 
-from app import month_data
-
-
 def predict_spending(df):
     df = df.copy()
     df['MonthIndex'] = range(len(df))
