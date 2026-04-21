@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 def prepare_dataset(df):
-    df["day"] = pd.to_datetime(df["day"])
+    df["day"] = pd.to_datetime(df["day"], errors="coerce")
 
     monthly = df.groupby(df["day"].dt.to_period('M'))["amount"].sum()
     monthly = monthly.reset_index()
