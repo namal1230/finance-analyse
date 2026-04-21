@@ -5,6 +5,7 @@ from utils.analysis import category_spending, monthly_trend, total_spending, ave
     generate_insights
 from utils.preprocess import load_daa
 from utils.visualization import plot_category_spending, plot_monthly_trend, plot_heatmap
+from utils.ml_model import predict_spending
 
 st.set_page_config(page_title="Finance Dashboard", layout="wide")
 
@@ -88,6 +89,9 @@ if uploaded_file:
     for insight in insights:
         st.info(insight)
 
+    st.subheader("AI Prediction")
 
+    prediction = predict_spending(df)
+    st.write(f"Next Spending Prediction: {prediction: .2f}")
 else:
     st.info("👆 Upload a CSV file to get started")
