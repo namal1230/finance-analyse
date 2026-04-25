@@ -14,7 +14,34 @@ def plot_category_spending(data):
     return fig
 
 def plot_heatmap(df):
-    pivot = df.pivot_table(values="amount",index="day",columns="month",aggfunc="sum")
+    df["month"] = df["date"].dt.to_period("M")
+
+    pivot = df.pivot_table(values="amount",index="category",columns="month",aggfunc="sum",fill_value=0)
     fig, ax = plt.subplots()
     sns.heatmap(pivot, cmap="coolwarm", ax=ax)
+    return fig
+
+def plot_distribution(df):
+    fig, ax = plt.subplots()
+
+    sns.histplot(
+        df["amount"],
+        bins=15,
+        kde=True,
+        ax=ax
+    )
+
+    ax.set_title("Distribution of Amount")
+    return fig
+
+def plot_outliers(df):
+    fig, ax = plt.subplots()
+    sns.boxplot(x=df["amount"],ax=ax)
+    ax.set_title("Outliers")
+    return fig
+
+def correlation_heatmap(corr):
+    fig, ax = plt.subplots(figsize=(8,5))
+    sns.heatmap(corr, annot=True, cmap="coolwarm", ax=ax)
+    ax.set_title("Correlation Matrix")
     return fig
