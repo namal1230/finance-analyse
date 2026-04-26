@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
+
+from utils.preprocess import load_daa
 from utils.analysis import category_spending, monthly_trend, total_spending, average_spending, predict_next_month, \
      correlation_statistics, outlier_detection, monthly_growth, moving_average_growth
-from utils.preprocess import load_daa
 from utils.visualization import plot_category_spending, plot_monthly_trend, plot_heatmap, plot_distribution, plot_outliers, correlation_heatmap, moving_avg
 from utils.ml_model import arima_forecasting, clustering, classification_model, recommendation
 
@@ -149,7 +150,7 @@ if uploaded_file:
         st.pyplot(moving_avg(monthly,growth))
 
 # ===================================================================
-#     Apply Machine Learning - ARIMA | CLUSTERING  | CLASSIFICATION  | RECOMMENDATIONS 
+#     Apply Machine Learning - ARIMA | CLUSTERING  | CLASSIFICATION  | RECOMMENDATIONS
 
     st.markdown("---")
     st.markdown("### 🤖 Advanced Insights")

@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-from matplotlib import markers
-
 
 def plot_monthly_trend(data):
     fig, ax = plt.subplots()

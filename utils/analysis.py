@@ -1,7 +1,7 @@
 import numpy as np
-from pandas.core._numba.kernels import mean_
 import scipy.stats as stats
 import pandas as pd
+
 def total_spending(df):
     return np.sum(df["amount"])
 
